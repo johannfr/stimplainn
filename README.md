@@ -22,10 +22,12 @@ stimplainn <starfsmannanumer> [-j tegund]
 ```
 
 Tegundir eru þær sem sýnilegar eru í listanum á skráningarsíðunni, talið frá 0:
+```
   0. Vinna
   1. Frí
   2. Veikindi
   3. Veikindi barns
+```
 
 ### Dæmi
 
