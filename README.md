@@ -18,7 +18,13 @@ pipx install git+https://github.com/johannfr/stimplainn.git
 ## Notkun
 
 ```bash
-stimplainn <starfsmannanumer> [-j tegund]
+Usage: stimplainn [OPTIONS] EMPLOYEE_NUMBER
+
+Options:
+  -j, --jobtype INTEGER   [default: 0]
+  -d, --description TEXT
+  -u, --update
+  --help                  Show this message and exit.
 ```
 
 Tegundir eru þær sem sýnilegar eru í listanum á skráningarsíðunni, talið frá 0:
