@@ -12,7 +12,8 @@ URL = "http://klukka.dkvistun.is/menningarfelagakureyrar?Length=12"
 @click.argument("employee_number")
 @click.option("-j", "--jobtype", default=0, show_default=True)
 @click.option("-d", "--description", default="")
-def main(employee_number, jobtype, description):
+@click.option("-u", "--update", is_flag=True, default=False)
+def main(employee_number, jobtype, description, update):
     content = requests.get(URL, headers=HEADERS).text
 
     form_data = {
@@ -35,6 +36,8 @@ def main(employee_number, jobtype, description):
     form_data["ctl00$_LoginForm$ssn"] = f"{employee_number}"
     form_data["ctl00$_LoginForm$jobtype"] = f"{jobtype}"
     form_data["ctl00$_LoginForm$desc"] = f"{description}"
+    if update:
+        form_data["ctl00$_LoginForm$update"] = "on"
 
     post_response = requests.post(URL, data=form_data, headers=HEADERS).text
     selector = Selector(post_response)
