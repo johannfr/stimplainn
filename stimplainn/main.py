@@ -11,7 +11,8 @@ URL = "http://klukka.dkvistun.is/menningarfelagakureyrar?Length=12"
 @click.command()
 @click.argument("employee_number")
 @click.option("-j", "--jobtype", default=0, show_default=True)
-def main(employee_number, jobtype):
+@click.option("-d", "--description", default="")
+def main(employee_number, jobtype, description):
     content = requests.get(URL, headers=HEADERS).text
 
     form_data = {
@@ -33,13 +34,14 @@ def main(employee_number, jobtype):
     ]
     form_data["ctl00$_LoginForm$ssn"] = f"{employee_number}"
     form_data["ctl00$_LoginForm$jobtype"] = f"{jobtype}"
+    form_data["ctl00$_LoginForm$desc"] = f"{description}"
 
     post_response = requests.post(URL, data=form_data, headers=HEADERS).text
     selector = Selector(post_response)
     if (error := selector.css("#ctl00__LoginForm_lblError::text").get()) is not None:
         click.echo(error, err=True)
     else:
-        print(selector.css("#ctl00__LoginForm_lblSuccess::text").get())
+        click.echo(selector.css("#ctl00__LoginForm_lblSuccess::text").get())
 
 
 if __name__ == "__main__":
